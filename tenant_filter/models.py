@@ -1,6 +1,6 @@
 # coding: utf-8
 from django.db import models
-from middleware import get_current_user
+from .middleware import get_current_user
 from django.conf import settings
 
 
