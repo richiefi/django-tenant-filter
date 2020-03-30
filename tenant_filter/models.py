@@ -27,7 +27,7 @@ class TenantFilterManager(models.Manager):
         """
         qs = super(TenantFilterManager, self).get_queryset()
         user = get_current_user()
-        if user and user.is_authenticated() and not user.has_perm('tenant_filter.no_tenant_required'):
+        if user and user.is_authenticated and not user.has_perm('tenant_filter.no_tenant_required'):
             tenant_user_obj = getattr(user, TENANT_USER_OBJ_NAME, None)
             if tenant_user_obj is None:
                 raise ValueError("No tenant defined for user")
