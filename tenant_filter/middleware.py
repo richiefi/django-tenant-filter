@@ -18,11 +18,14 @@ def get_current_user():
 
 class GlobalRequestMiddleware(object):
     """ Simple middleware that adds the request object in thread local storage."""
+    def __init__(self, get_response):
+        self.get_response = get_response
 
-    def process_request(self, request):
+    def __call__(self, request):
         _thread_locals.request = request
 
-    def process_response(self, request, response):
+        response = self.get_response(request)
+
         if get_current_request():
             try:
                 del _thread_locals.request
